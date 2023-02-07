@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 //fingerprint-----------------
-SoftwareSerial mySerial(2, 3); //yellow, green rx, tx
+SoftwareSerial mySerial(2, 3); // rx, tx
 Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial);
 
 //LCD-----------------
@@ -19,7 +19,7 @@ String lock_status ="BIKE LOCKED";
 //Vibration---------------
 int vibrationPin = 9;
 
-//Relay-------------------
+//Relay------------------- relay to turn off bike controller 
 int relayPin=8;
 
 //GSM--------------------
@@ -76,7 +76,7 @@ void setup()
   //ss.begin(9600); //Setting GPS baud rate
 }
 
-void(* resetFunc) (void) = 0;  // declare reset fuction at address 0
+void(* resetFunc) (void) = 0;  // declare reset fuction at address 0. For manual button reset.
 
 void loop(){                     
   
@@ -176,8 +176,8 @@ void SendMessage()
 { 
   SIM900A.begin(9600);
   SIM900A.println("AT+CMGF=1");    //Sets the GSM Module in Text Mode
-  SIM900A.println("AT+CMGS=\"+917306181598\"\r"); //Mobile phone number to send messag
-  SIM900A.println("CRASH DETECTED IN BRIAN'S BIKE");// Messsage content
+  SIM900A.println("AT+CMGS=\"PHONE NUMBER\"\r"); //Mobile phone number to send messag
+  SIM900A.println("CRASH DETECTED IN \"USER NAME\" BIKE");// Messsage content
   Serial.println(gmap);  
   SIM900A.println(gmap);
   SIM900A.println((char)26);// ASCII code of CTRL+Z
